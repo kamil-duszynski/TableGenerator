@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/kd/table-generator/")
+ * @Route("/kd/table-generator")
  */
 class TableController extends Controller
 {
@@ -28,11 +28,11 @@ class TableController extends Controller
         try {
             $tableType  = $request->request->get('class');
             $parameters = [
-                'name' => $request->request->get('name')
+                'name' => $request->request->get('name'),
             ];
 
             $tableGenerator = $this->get('table_generator');
-            $tableGenerator->init(new $tableType(), $parameters);
+            $tableGenerator->init($tableType, $parameters);
 
             $html = $this->renderView('@TableGenerator/Table/table.html.twig', [
                 'table' => $tableGenerator->createView(),
@@ -60,11 +60,11 @@ class TableController extends Controller
     {
         $tableType  = $request->request->get('class');
         $parameters = [
-            'name' => $request->request->get('name')
+            'name' => $request->request->get('name'),
         ];
 
         $tableGenerator = $this->get('table_generator');
-        $tableGenerator->init(new $tableType(), $parameters);
+        $tableGenerator->init($tableType, $parameters);
 
         return $tableGenerator->createExport();
     }
