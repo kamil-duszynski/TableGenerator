@@ -18,14 +18,13 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('table_generator');
+        $rootNode    = $treeBuilder->root('table_generator');
 
         $rootNode
             ->children()
                 ->scalarNode('template')
+                ->addDefaultsIfNotSet()
                 ->defaultValue('@TableGenerator/Table/layout.html.twig')
-                ->isRequired()
-                ->cannotBeEmpty()
             ->end()
         ->end();
 
