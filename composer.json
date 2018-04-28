@@ -1,5 +1,5 @@
 {
-  "name": "kamil-duszynski/TableGenerator",
+  "name": "kamil-duszynski/table-generator",
   "type": "symfony-bundle",
   "description": "Symfony Table Generator Bundle For Doctrine2 Entities",
   "keywords": ["symfony3", "datatable", "datatables", "data-table", "table", "datagrid", "pagination", "tablegenerator"],
