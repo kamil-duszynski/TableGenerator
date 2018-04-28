@@ -23,7 +23,6 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('template')
-                ->addDefaultsIfNotSet()
                 ->defaultValue('@TableGenerator/Table/layout.html.twig')
             ->end()
         ->end();
