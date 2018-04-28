@@ -1,0 +1,22 @@
+<form action="{{ path('table_generator.export') }}" class="input-group table-export-panel">
+    <input type="hidden" name="export" value="{{ actual }}" />
+
+    <div class="btn-group table-export">
+        <button type="button" class="btn btn-default btn-export" data-href="{{ path('table_generator.export', { 'format': actual }) }}">
+            <i class="fa fa-download"></i>
+            {{ 'Exportuj'|trans }}:
+            <span class="table-export-format">{{ actual }}</span>
+        </button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+            {% for format in formats %}
+                <li{% if format == actual %} class="active"{% endif %}>
+                    <a href="javascript:void(0);" data-value="{{ format }}">{{ format }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</form>

@@ -1,0 +1,7 @@
+{% if attr is not empty %}
+    {% for name, value in attr %}
+        {{ name }} = "{{ value }}"
+    {% endfor %}
+{% else %}
+    class="btn btn-app button-{{ name }}"
+{% endif %}

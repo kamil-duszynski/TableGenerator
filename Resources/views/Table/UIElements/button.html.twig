@@ -1,0 +1,19 @@
+{% if route is not empty %}
+    <a href="{{ path(route, parameters) }}" {{ generateTableButtonAttr(name, attr) }} {% if modalMessage is not empty %} data-message="{{ modalMessage }}"{% endif %}>
+        {% if icon is not empty %}
+            <i class="{{ icon }} icon-btn"></i><i class="icon-wait glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
+        {% endif %}
+        {% if label is not empty %}
+            {{ label }}
+        {% endif %}
+    </a>
+{% else %}
+    <button type="button" name="button-{{ name }}" {{ generateTableButtonAttr(name, attr) }} {% if modalMessage is not empty %}data-message="{{ modalMessage }}"{% endif %}>
+        {% if icon is not empty %}
+            <i class="{{ icon }} icon-btn"></i><i class="icon-wait glyphicon glyphicon-refresh glyphicon-refresh-animate"></i>
+        {% endif %}
+        {% if label is not empty %}
+            {{ label }}
+        {% endif %}
+    </button>
+{% endif %}

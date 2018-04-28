@@ -1,0 +1,14 @@
+{% if actionPanel is not empty %}
+    <div class="row">
+        <div class="col-md-12">
+            <hr size="1">
+            <div class="pull-right">
+                <div class="btn-group">
+                    {% for button in actionPanel %}
+                        {{ generateTableButton(button) }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

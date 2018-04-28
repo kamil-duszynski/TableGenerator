@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<document>
+    <info>
+        <created_at>{{ 'now'|date('Y-m-d H:i:s') }}</created_at>
+        <created_by>{{ user.firstname ~ ' ' ~ user.lastname }}</created_by>
+        <author_email>{{ user.email }}</author_email>
+    </info>
+    <rows>
+        {% for row in rows %}
+            <row>
+                <number>{{ loop.index }}</number>
+                {% for column in row %}
+                    <{{ column.name }}>{{ column.value }}</{{ column.name }}>
+                {% endfor %}
+            </row>
+        {% endfor %}
+    </rows>
+</document>

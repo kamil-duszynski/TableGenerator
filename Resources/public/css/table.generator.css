@@ -1,0 +1,15 @@
+.table-container .progress {
+    display: none;
+}
+
+.pagination {
+    margin-bottom: 0;
+}
+
+.table-go-to-page, .table-export-panel {
+    margin-top: 20px;
+}
+
+.table-go-to-page .input-group {
+    width: 150px;
+}

@@ -1,0 +1,25 @@
+{
+  "name": "kamil-duszynski/TableGenerator",
+  "type": "symfony-bundle",
+  "description": "Symfony Table Generator Bundle For Doctrine2 Entities",
+  "keywords": ["symfony3", "datatable", "datatables", "data-table", "table", "datagrid", "pagination", "tablegenerator"],
+  "homepage": "https://github.com/kamil-duszynski/TableGenerator",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kamil Duszyński"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/kamil-duszynski/TableGenerator/issues"
+  },
+  "require": {
+    "php": ">=7.1.0",
+    "symfony/framework-bundle": "^3.0|^4.0",
+    "doctrine/orm": "^2.5",
+    "symfony/options-resolver": "^3.0|^4.0",
+  },
+  "autoload": {
+    "psr-4": { "KamilDuszynski\\TableGeneratorBundle\\": "" }
+  }
+}
