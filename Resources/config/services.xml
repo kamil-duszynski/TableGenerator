@@ -16,7 +16,7 @@
             <argument type="service" id="twig" />
         </service>
 
-        <service id="table_generator" class="KamilDuszynski\TableGeneratorBundle\TableGenerator">
+        <service id="table_generator" class="KamilDuszynski\TableGeneratorBundle\TableGenerator" public="true">
             <argument type="service" id="request_stack" />
             <argument type="service" id="templating" />
             <argument type="service" id="doctrine.orm.entity_manager"/>
