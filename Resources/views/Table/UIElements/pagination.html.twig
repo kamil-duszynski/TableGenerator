@@ -7,7 +7,7 @@
 
                     <div class="btn-group table-items">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            {{ 'Ilość rekordów'|trans }}:
+                            {{ 'table_generator.pagination.count'|trans }}:
                             <span class="table-items-count">{{ perPage|default(10) }}</span>
                             <span class="caret"></span>
                         </button>
@@ -18,14 +18,14 @@
                                 </li>
                             {% endfor %}
                             <li class="divider"></li>
-                            <li{% if perPage == 999999999 %} class="active"{% endif %}><a href="{{ path('table_generator.generate', {'page': 1}) }}" data-value="999999999">{{ 'wszystkie'|trans }}</a></li>
+                            <li{% if perPage == 999999999 %} class="active"{% endif %}><a href="{{ path('table_generator.generate', {'page': 1}) }}" data-value="999999999">{{ 'table_generator.pagination.all'|trans }}</a></li>
                         </ul>
                     </div>
 
                     {% if firstPage is not null %}
                         <button type="button" class="btn-pagination btn btn-default"
                                 data-href="{{ path('table_generator.generate', {'page': firstPage}) }}"
-                                title="{{ 'Pierwsza strona'|trans }}">
+                                title="{{ 'table_generator.pagination.page.first'|trans }}">
                             <i class="glyphicon glyphicon-step-backward"></i>
                         </button>
                     {% endif %}
@@ -33,7 +33,7 @@
                     {% if prevPage is not null %}
                         <button type="button" class="btn-pagination btn btn-default"
                                 data-href="{{ path('table_generator.generate', {'page': prevPage}) }}"
-                                title="{{ 'Poprzednia strona'|trans }}">
+                                title="{{ 'table_generator.pagination.page.previous'|trans }}">
                             <i class="glyphicon glyphicon-chevron-left"></i>
                         </button>
                     {% endif %}
@@ -42,7 +42,7 @@
                         <button type="button"
                                 class="btn-pagination btn btn-{% if page == actualPage %}primary{% else %}default{% endif %}"
                                 data-href="{{ path('table_generator.generate', {'page': page}) }}"
-                                title="{% if page == actualPage %}{{ 'Aktualna strona'|trans }}{% else %}{{ 'Przejdź do strony o podanym numerze'|trans }}{% endif %}">
+                                title="{% if page == actualPage %}{{ 'table_generator.pagination.page.actual'|trans }}{% else %}{{ 'table_generator.pagination.go_to.page_with_number'|trans }}{% endif %}">
                             {{ page }}
                         </button>
                     {% endfor %}
@@ -50,7 +50,7 @@
                     {% if nextPage is not null %}
                         <button type="button" class="btn-pagination btn btn-default"
                                 data-href="{{ path('table_generator.generate', {'page': nextPage}) }}"
-                                title="{{ 'Natępna strona'|trans }}">
+                                title="{{ 'table_generator.pagination.page.next'|trans }}">
                             <i class="glyphicon glyphicon-chevron-right"></i>
                         </button>
                     {% endif %}
@@ -58,7 +58,7 @@
                     {% if lastPage is not null %}
                         <button type="button" class="btn-pagination btn btn-default"
                                 data-href="{{ path('table_generator.generate', {'page': lastPage}) }}"
-                                title="{{ 'Ostatnia strona'|trans }}">
+                                title="{{ 'table_generator.pagination.page.last'|trans }}">
                             <i class="glyphicon glyphicon-step-forward"></i>
                         </button>
                     {% endif %}
@@ -72,9 +72,9 @@
         <div class="pull-right table-go-to-page" data-href="{{ path('table_generator.generate', {'page': 0}) }}">
             <div class="input-group">
                 <div class="input-group-btn">
-                    <button type="button" class="btn btn-default">{{ 'Przejdź do strony:'|trans }}</button>
+                    <button type="button" class="btn btn-default">{{ 'table_generator.pagination.go_to.page'|trans }}:</button>
                 </div>
-                <input type="text" style="width:45px;text-align:center;" class="form-control" value="{{ actualPage }}" name="actual-page" title="{{ 'Przejdź bezpośrednio do wskazanej strony'|trans }}" />
+                <input type="text" style="width:45px;text-align:center;" class="form-control" value="{{ actualPage }}" name="actual-page" title="{{ 'table_generator.pagination.go_to.page_with_number'|trans }}" />
             </div>
         </div>
     </div>

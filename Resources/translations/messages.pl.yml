@@ -1,0 +1,29 @@
+table_generator:
+    action_panel:
+        export: "Exportuj"
+    search:
+        input: "Wpisz frazę do wyszukania..."
+        submit: "Wyszukaj"
+        header:
+            title: "Filtrowanie i wyszukiwanie"
+            found: "Znaleziono"
+            records: "elementów"
+    progress:
+        loaded: "Załadowano"
+    table:
+        options: "Opcje"
+        check_all: "Kliknij, aby zaznaczyć wszystkie wyniki"
+        check_record: "Kliknij, aby zaznaczyć element"
+        empty: "- brak danych do wyświetlenia -"
+    pagination:
+        count: "Records count"
+        all: "wszystkie"
+        page:
+            first: "Pierwsza strona"
+            previous: "Poprzednia strona"
+            actual: "Aktualna strona"
+            next: "Next page"
+            last: "Last page"
+        go_to:
+            page_with_number: "Przejdź do strony o podanym numerze"
+            page: "Przejdź do strony"

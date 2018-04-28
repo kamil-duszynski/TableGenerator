@@ -1,0 +1,29 @@
+table_generator:
+    action_panel:
+        export: "Export"
+    search:
+        input: "Type phrase to search..."
+        submit: "Search"
+        header:
+            title: "Filter & search"
+            found: "Found"
+            records: "records"
+    progress:
+        loaded: "Loaded"
+    table:
+        options: "Options"
+        check_all: "Click to check all records"
+        check_record: "Click to check this record"
+        empty: "- nothing to show -"
+    pagination:
+        count: "Records count"
+        all: "all"
+        page:
+            first: "Pierwsza strona"
+            previous: "Poprzednia strona"
+            actual: "Aktualna strona"
+            next: "Następna strona"
+            last: "Ostatnia strona"
+        go_to:
+            page_with_number: "Go to page with given number"
+            page: "Go to page"
