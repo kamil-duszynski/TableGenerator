@@ -96,8 +96,6 @@ class TableGenerator
      * @param array  $parameters
      *
      * @return $this
-     *
-     * @throws \Exception
      */
     public function init(string $tableType, $parameters = [])
     {
