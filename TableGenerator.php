@@ -92,15 +92,22 @@ class TableGenerator
     }
 
     /**
-     * @param TableTypeInterface $tableType
-     * @param array              $parameters
+     * @param string $tableType
+     * @param array  $parameters
      *
      * @return $this
+     *
+     * @throws \Exception
      */
-    public function init(TableTypeInterface $tableType, $parameters = [])
+    public function init(string $tableType, $parameters = [])
     {
-        $this->tableType  = $tableType;
-        $optionsResolver  = new OptionsResolver();
+        $this->tableType = new $tableType();
+
+        if (false === $this->tableType) {
+            throw new \Exception('Invalid class of TableType');
+        }
+
+        $optionsResolver = new OptionsResolver();
 
         $this->tableType->configureOptions($optionsResolver);
         $this->parameters = $optionsResolver->resolve($parameters);
