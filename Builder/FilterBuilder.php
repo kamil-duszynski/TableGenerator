@@ -32,18 +32,39 @@ class FilterBuilder
         $optionResolver = new OptionsResolver();
         $optionResolver->setDefaults(
             [
-                'value'          => '',
+                'property'       => null,
+                'value'          => null,
                 'operation'      => '=',
                 'isAutoComplete' => false,
             ]
         );
         $optionResolver->addAllowedTypes('isAutoComplete', 'boolean');
-        $optionResolver->addAllowedTypes('value', 'string');
+        $optionResolver->addAllowedTypes(
+            'property',
+            [
+                'string',
+                'null',
+            ]
+        );
+        $optionResolver->addAllowedTypes(
+            'value',
+            [
+                'string',
+                'null',
+            ]
+        );
         $optionResolver->addAllowedTypes('operation', 'string');
 
         $data = $optionResolver->resolve($data);
 
-        $this->filters[] = new Filter($name, $label, $data['value'], $data['operation'], $data['isAutoComplete']);
+        $this->filters[] = new Filter(
+            $name,
+            $label,
+            $data['property'],
+            $data['value'],
+            $data['operation'],
+            $data['isAutoComplete']
+        );
 
         return $this;
     }

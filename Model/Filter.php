@@ -15,6 +15,11 @@ class Filter
     private $label;
 
     /**
+     * @var null|string
+     */
+    private $property;
+
+    /**
      * @var string
      */
     private $value;
@@ -30,16 +35,18 @@ class Filter
     private $isAutoComplete;
 
     /**
-     * @param string $name
-     * @param string $value
-     * @param string $label
-     * @param string $operation
-     * @param bool   $isAutoComplete
+     * @param string      $name
+     * @param string      $label
+     * @param string|null $property
+     * @param string|null $value
+     * @param string      $operation
+     * @param bool        $isAutoComplete
      */
-    public function __construct($name, $label, $value = null, $operation = '=', $isAutoComplete = false)
+    public function __construct($name, $label, $property = null, $value = null, $operation = '=', $isAutoComplete = false)
     {
         $this->name           = $name;
         $this->label          = $label;
+        $this->property       = $property;
         $this->value          = $value;
         $this->operation      = $operation;
         $this->isAutoComplete = $isAutoComplete;
@@ -59,6 +66,14 @@ class Filter
     public function getLabel()
     {
         return $this->label;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getProperty()
+    {
+        return $this->property;
     }
 
     /**

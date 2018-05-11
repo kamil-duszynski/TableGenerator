@@ -15,7 +15,12 @@ class Column
     private $label;
 
     /**
-     * @var string
+     * @var string|null
+     */
+    private $property;
+
+    /**
+     * @var string|null
      */
     private $route;
 
@@ -35,17 +40,19 @@ class Column
     private $valueDecorator;
 
     /**
-     * @param string $name
-     * @param string $label
-     * @param string $route
-     * @param array  $parameters
-     * @param array  $attr
-     * @param $valueDecorator
+     * @param string      $name
+     * @param string      $label
+     * @param string|null $property
+     * @param string|null $route
+     * @param array       $parameters
+     * @param array       $attr
+     * @param             $valueDecorator
      */
-    public function __construct($name, $label, $route = null, $parameters = [], $attr = [], $valueDecorator = null)
+    public function __construct($name, $label, $property = null, $route = null, $parameters = [], $attr = [], $valueDecorator = null)
     {
         $this->name           = $name;
         $this->label          = $label;
+        $this->property       = $property;
         $this->route          = $route;
         $this->parameters     = $parameters;
         $this->attr           = $attr;
@@ -69,7 +76,15 @@ class Column
     }
 
     /**
-     * @return string
+     * @return string|null
+     */
+    public function getProperty()
+    {
+        return $this->property;
+    }
+
+    /**
+     * @return string|null
      */
     public function getRoute()
     {

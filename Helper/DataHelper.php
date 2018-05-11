@@ -3,6 +3,7 @@
 namespace KamilDuszynski\TableGeneratorBundle\Helper;
 
 use Doctrine\ORM\QueryBuilder;
+use KamilDuszynski\TableGeneratorBundle\Factory\ColumnValueFactory;
 use KamilDuszynski\TableGeneratorBundle\Model\Column;
 use KamilDuszynski\TableGeneratorBundle\Model\Filter;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,37 +53,52 @@ class DataHelper
             return;
         }
 
-        foreach ($this->filters as $key => $filter) {
-            $value     = $filter->getValue();
-            $operation = $filter->getOperation();
+        $index = 0;
+
+        foreach ($this->filters as $filter) {
+            $value          = $filter->getValue();
+            $operation      = $filter->getOperation();
+            $property       = $filter->getProperty();
+            $field          = $filter->getName();
+            $rootAlias      = $queryBuilder->getRootAlias();
+            $hasAssociation = FilterHelper::hasAssociation($filter, $queryBuilder);
+
+            if (true === $hasAssociation) {
+                $join      = sprintf('%s.%s', $rootAlias, $field);
+                $rootAlias = $field;
+
+                $queryBuilder->leftJoin($join, $rootAlias);
+            }
+
+            if (null !== $property) {
+                $field = $property;
+            }
 
             if (true === empty($value)) {
                 continue;
             }
 
             if ('like' === $operation) {
-                $value = '%' . $value . '%';
+                $value = sprintf('%s%s%s', '%', $value, '%');
             }
 
             $sql = sprintf(
                 '%s.%s %s \'%s\'',
-                $queryBuilder->getRootAlias(),
-                $filter->getName(),
+                $rootAlias,
+                $field,
                 $operation,
                 addslashes($value)
             );
 
-            if (0 === $key) {
-                $queryBuilder->where(
-                    $sql
-                );
+            if (0 === $index) {
+                $queryBuilder->where($sql);
+                $index++;
 
                 continue;
             }
 
-            $queryBuilder->andWhere(
-                $sql
-            );
+            $queryBuilder->andWhere($sql);
+            $index++;
         }
     }
 
@@ -110,26 +126,38 @@ class DataHelper
             '%'
         );
 
-        foreach ($this->columns as $key => $column) {
-            $sql = sprintf(
-                '%s.%s like \'%s\'',
-                $queryBuilder->getRootAlias(),
-                $column->getName(),
+        $index = 0;
+        $sql   = '';
+
+        foreach ($this->columns as $column) {
+            $field          = $column->getName();
+            $property       = $column->getProperty();
+            $rootAlias      = $queryBuilder->getRootAlias();
+            $hasAssociation = ColumnHelper::hasAssociation($column, $queryBuilder);
+
+            if (true === $hasAssociation) {
+                $join      = sprintf('%s.%s', $rootAlias, $field);
+                $rootAlias = $field;
+
+                $queryBuilder->leftJoin($join, $rootAlias);
+            }
+
+            if (null !== $property) {
+                $field = $property;
+            }
+
+            $sql .= sprintf(
+                '%s %s.%s like \'%s\'',
+                0 === $index ? '' : ' OR ',
+                $rootAlias,
+                $field,
                 addslashes($search)
             );
 
-            if (0 === $key) {
-                $queryBuilder->where(
-                    $sql
-                );
-
-                continue;
-            }
-
-            $queryBuilder->orWhere(
-                $sql
-            );
+            $index++;
         }
+
+        $queryBuilder->andWhere($sql);
 
         return true;
     }
@@ -138,6 +166,7 @@ class DataHelper
      * @param array $data
      *
      * @return array
+     *
      * @throws \Exception
      */
     public function getRows($data = [])
@@ -148,7 +177,7 @@ class DataHelper
 
         $rows = [];
 
-        foreach($data as $row) {
+        foreach ($data as $row) {
             $filteredRow = [];
 
             if (false === isset($row['id'])) {
@@ -162,24 +191,20 @@ class DataHelper
 
             $filteredRow['id'] = $row['id'];
 
-            foreach($this->columns as $column) {
-                if (false === in_array($column->getName(), array_keys($row))) {
+            foreach ($this->columns as $column) {
+                $columnName = $column->getName();
+
+                if (false === in_array($columnName, array_keys($row))) {
                     throw new \Exception(
                         sprintf(
                             'Column "%s" is not defined in data result',
-                            $column->getName()
+                            $columnName
                         )
                     );
                 }
 
-                if (null !== $column->getValueDecorator()) {
-                    $decorator                       = $column->getValueDecorator();
-                    $filteredRow[$column->getName()] = $decorator($row[$column->getName()]);
-
-                    continue;
-                }
-
-                $filteredRow[$column->getName()] = $row[$column->getName()];
+                $mixedContent             = $row[$columnName];
+                $filteredRow[$columnName] = ColumnValueFactory::createValueForColumn($mixedContent, $column);
             }
 
             $rows[] = $filteredRow;
