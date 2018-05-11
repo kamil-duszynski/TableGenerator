@@ -3,6 +3,7 @@
 namespace KamilDuszynski\TableGeneratorBundle\Helper;
 
 use Doctrine\ORM\QueryBuilder;
+use KamilDuszynski\TableGeneratorBundle\Factory\ColumnNameFactory;
 use KamilDuszynski\TableGeneratorBundle\Factory\ColumnValueFactory;
 use KamilDuszynski\TableGeneratorBundle\Model\Column;
 use KamilDuszynski\TableGeneratorBundle\Model\Filter;
@@ -163,14 +164,14 @@ class DataHelper
     }
 
     /**
-     * @param array $data
-     * @param array $aliases
+     * @param array        $data
+     * @param QueryBuilder $querybuilder
      *
      * @return array
      *
      * @throws \Exception
      */
-    public function getRows($data = [], $aliases = [])
+    public function getRows($data = [], QueryBuilder $querybuilder)
     {
         if (true === empty($data)) {
             return [];
@@ -203,12 +204,7 @@ class DataHelper
                 $columnName = $field;
 
                 if (false !== strpos($field, '.')) {
-                    $fieldNameParts = explode('.', $field);
-                    $alias          = $fieldNameParts[0];
-
-
-                    var_dump($aliases);
-                    die();
+                    $columnName = ColumnNameFactory::create($querybuilder, $field);
                 }
 
                 if (false === in_array($columnName, array_keys($row))) {
