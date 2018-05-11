@@ -194,8 +194,9 @@ class DataHelper
             $filteredRow['id'] = $row['id'];
 
             foreach ($this->columns as $column) {
-                $field    = $column->getName();
-                $property = $column->getProperty();
+                $field     = $column->getName();
+                $fieldName = $field;
+                $property  = $column->getProperty();
 
                 if (null !== $property) {
                     $field = $property;
@@ -216,8 +217,8 @@ class DataHelper
                     );
                 }
 
-                $mixedContent             = $row[$columnName];
-                $filteredRow[$columnName] = ColumnValueFactory::createValueForColumn($mixedContent, $column);
+                $mixedContent            = $row[$columnName];
+                $filteredRow[$fieldName] = ColumnValueFactory::createValueForColumn($mixedContent, $column);
             }
 
             $rows[] = $filteredRow;
