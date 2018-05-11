@@ -111,14 +111,19 @@ class TableGeneratorExtension extends \Twig_Extension
     }
 
     /**
-     * @param Table $table
+     * @param Table       $table
+     * @param string|null $template
      *
      * @return string
      */
-    public function generateTable(Table $table)
+    public function generateTable(Table $table, $template = null)
     {
+        if (null === $template) {
+            $template = $this->template;
+        }
+
         return $this->twigEnvironment->render(
-            $this->template,
+            $template,
             [
                 'name'          => $table->getName(),
                 'class'         => $table->getClass(),
@@ -185,14 +190,13 @@ class TableGeneratorExtension extends \Twig_Extension
         if (1 >= $pagination->getActualPage()) {
             $first = 1;
             $last  = 3;
-        }
-        else {
+        } else {
             $first = $pagination->getActualPage() - 1;
             $last  = $pagination->getActualPage() + 1;
         }
 
         if ($pagination->getPagesCount() <= $last) {
-            $last = $pagination->getPagesCount();
+            $last  = $pagination->getPagesCount();
             $first = $last - 2;
         }
 
@@ -200,7 +204,7 @@ class TableGeneratorExtension extends \Twig_Extension
             $last = 1;
         }
 
-        if(1 >= $first) {
+        if (1 >= $first) {
             $first = 1;
         }
 
@@ -211,15 +215,15 @@ class TableGeneratorExtension extends \Twig_Extension
         return $this->twigEnvironment->render(
             '@TableGenerator/Table/UIElements/pagination.html.twig',
             [
-                'firstPage'          => $pagination->getFirstPage(),
-                'actualPage'         => $pagination->getActualPage(),
-                'nextPage'           => $pagination->getNextPage(),
-                'lastPage'           => $pagination->getLastPage(),
-                'prevPage'           => $pagination->getPrevPage(),
-                'totalCount'         => $pagination->getTotalCount(),
-                'perPage'            => $pagination->getPerPage(),
-                'pages'              => $pages,
-                'items'              => $pagination->getItems()
+                'firstPage'  => $pagination->getFirstPage(),
+                'actualPage' => $pagination->getActualPage(),
+                'nextPage'   => $pagination->getNextPage(),
+                'lastPage'   => $pagination->getLastPage(),
+                'prevPage'   => $pagination->getPrevPage(),
+                'totalCount' => $pagination->getTotalCount(),
+                'perPage'    => $pagination->getPerPage(),
+                'pages'      => $pages,
+                'items'      => $pagination->getItems(),
             ]
         );
     }
@@ -263,7 +267,6 @@ class TableGeneratorExtension extends \Twig_Extension
     public function generateTableButtonAttr($name, $attr = [])
     {
         if (false === empty($attr)) {
-
             foreach ($attr as $attrName => $value) {
                 if ('class' === $attrName) {
                     $value = sprintf(
@@ -281,7 +284,7 @@ class TableGeneratorExtension extends \Twig_Extension
             '@TableGenerator/Table/UIElements/button.attr.html.twig',
             [
                 'attr' => $attr,
-                'name' => $name
+                'name' => $name,
             ]
         );
     }
