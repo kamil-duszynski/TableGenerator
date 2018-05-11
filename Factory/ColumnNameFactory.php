@@ -3,6 +3,7 @@
 namespace KamilDuszynski\TableGeneratorBundle\Factory;
 
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query\Expr\Join;
 
 class ColumnNameFactory
 {
@@ -36,13 +37,16 @@ class ColumnNameFactory
 
         $aliases = $joinAliases[$root];
 
-        var_dump($aliases);
-        die();
+        /** @var Join $joinAlias */
+        foreach ($aliases as $joinAlias) {
+            $join  = explode('.', $joinAlias->getJoin());
+            $alias = $joinAlias->getAlias();
 
-        foreach ($aliases as $aliasName => $alias) {
-            if ($aliasName !== $fieldAlias) {
+            if ($alias !== $fieldAlias) {
                 continue;
             }
+
+            $fieldName = $join[1]; //bo index 0 to alias
         }
 
         return $fieldName;
