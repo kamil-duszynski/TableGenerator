@@ -40,6 +40,11 @@ class ColumnValueFactory
             );
         }
 
+        if (false !== strpos('.', $property)) {
+            $propertyExploded = explode('.', $property);
+            $property         = $propertyExploded[1]; // pod indexem 0 jest alias tabeli
+        }
+
         if (true === $isArray) {
             $value = $mixedContent[$property];
         }

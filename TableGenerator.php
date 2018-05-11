@@ -340,7 +340,8 @@ class TableGenerator
             ->setFirstResult(($perPage * $pagination->getActualPage()) - $perPage)
             ->getArrayResult();
 
-        $this->data = $dataHelper->getRows($data);
+        $aliases    = $queryBuilder->getRootAliases();
+        $this->data = $dataHelper->getRows($data, $aliases);
 
         return $this->data;
     }

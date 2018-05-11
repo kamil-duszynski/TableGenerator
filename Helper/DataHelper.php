@@ -164,12 +164,13 @@ class DataHelper
 
     /**
      * @param array $data
+     * @param array $aliases
      *
      * @return array
      *
      * @throws \Exception
      */
-    public function getRows($data = [])
+    public function getRows($data = [], $aliases = [])
     {
         if (true === empty($data)) {
             return [];
@@ -192,7 +193,23 @@ class DataHelper
             $filteredRow['id'] = $row['id'];
 
             foreach ($this->columns as $column) {
-                $columnName = $column->getName();
+                $field    = $column->getName();
+                $property = $column->getProperty();
+
+                if (null !== $property) {
+                    $field = $property;
+                }
+
+                $columnName = $field;
+
+                if (false !== strpos($field, '.')) {
+                    $fieldNameParts = explode('.', $field);
+                    $alias          = $fieldNameParts[0];
+
+
+                    var_dump($aliases);
+                    die();
+                }
 
                 if (false === in_array($columnName, array_keys($row))) {
                     throw new \Exception(
