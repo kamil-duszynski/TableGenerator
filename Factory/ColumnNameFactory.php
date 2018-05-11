@@ -17,7 +17,7 @@ class ColumnNameFactory
      */
     public static function create(QueryBuilder $queryBuilder, $field)
     {
-        $fieldName      = null;
+        $fieldName      = $field;
         $root           = null;
         $fieldNameParts = explode('.', $field);
         $fieldAlias     = $fieldNameParts[0];
