@@ -50,6 +50,11 @@ class Filter
     private $isAutoComplete;
 
     /**
+     * @var array
+     */
+    private $attr;
+
+    /**
      * @param string      $name
      * @param string      $label
      * @param string      $type
@@ -57,6 +62,7 @@ class Filter
      * @param string|null $value
      * @param string      $operation
      * @param bool        $isAutoComplete
+     * @param array       $attr
      */
     public function __construct(
         $name,
@@ -65,7 +71,8 @@ class Filter
         $property = null,
         $value = null,
         $operation = '=',
-        $isAutoComplete = false
+        $isAutoComplete = false,
+        array $attr = []
     ) {
         $this->name           = $name;
         $this->label          = $label;
@@ -74,6 +81,7 @@ class Filter
         $this->value          = $value;
         $this->operation      = $operation;
         $this->isAutoComplete = $isAutoComplete;
+        $this->attr           = $attr;
     }
 
     /**
@@ -130,5 +138,13 @@ class Filter
     public function isAutoComplete()
     {
         return $this->isAutoComplete;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAttr()
+    {
+        return $this->attr;
     }
 }

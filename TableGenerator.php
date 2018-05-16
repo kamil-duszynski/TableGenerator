@@ -229,7 +229,8 @@ class TableGenerator
                 $filter->getProperty(),
                 $requestFilters[$filter->getName()],
                 $filter->getOperation(),
-                $filter->isAutoComplete()
+                $filter->isAutoComplete(),
+                $filter->getAttr()
             );
         }
 

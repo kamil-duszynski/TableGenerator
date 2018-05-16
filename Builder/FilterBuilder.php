@@ -37,10 +37,12 @@ class FilterBuilder
                 'value'          => null,
                 'operation'      => '=',
                 'isAutoComplete' => false,
+                'attr'           => [],
             ]
         );
         $optionResolver->addAllowedTypes('isAutoComplete', 'boolean');
         $optionResolver->addAllowedTypes('type', 'string');
+        $optionResolver->addAllowedTypes('attr', 'array');
         $optionResolver->addAllowedTypes(
             'property',
             [
@@ -66,7 +68,8 @@ class FilterBuilder
             $data['property'],
             $data['value'],
             $data['operation'],
-            $data['isAutoComplete']
+            $data['isAutoComplete'],
+            $data['attr']
         );
 
         return $this;
