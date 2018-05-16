@@ -5,6 +5,16 @@ namespace KamilDuszynski\TableGeneratorBundle\Model;
 class Filter
 {
     /**
+     * @const string
+     */
+    const TYPE_INPUT = 'input';
+
+    /**
+     * @const string
+     */
+    const TYPE_CHECKBOX = 'checkbox';
+
+    /**
      * @var string
      */
     private $name;
@@ -13,6 +23,11 @@ class Filter
      * @var string
      */
     private $label;
+
+    /**
+     * @var string
+     */
+    private $type;
 
     /**
      * @var null|string
@@ -37,15 +52,24 @@ class Filter
     /**
      * @param string      $name
      * @param string      $label
+     * @param string      $type
      * @param string|null $property
      * @param string|null $value
      * @param string      $operation
      * @param bool        $isAutoComplete
      */
-    public function __construct($name, $label, $property = null, $value = null, $operation = '=', $isAutoComplete = false)
-    {
+    public function __construct(
+        $name,
+        $label,
+        $type = self::TYPE_INPUT,
+        $property = null,
+        $value = null,
+        $operation = '=',
+        $isAutoComplete = false
+    ) {
         $this->name           = $name;
         $this->label          = $label;
+        $this->type           = $type;
         $this->property       = $property;
         $this->value          = $value;
         $this->operation      = $operation;
@@ -66,6 +90,14 @@ class Filter
     public function getLabel()
     {
         return $this->label;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**

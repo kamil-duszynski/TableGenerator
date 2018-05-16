@@ -225,6 +225,7 @@ class TableGenerator
             $filters[$key] = new Filter(
                 $filter->getName(),
                 $filter->getLabel(),
+                $filter->getType(),
                 $filter->getProperty(),
                 $requestFilters[$filter->getName()],
                 $filter->getOperation(),

@@ -32,6 +32,7 @@ class FilterBuilder
         $optionResolver = new OptionsResolver();
         $optionResolver->setDefaults(
             [
+                'type'           => Filter::TYPE_INPUT,
                 'property'       => null,
                 'value'          => null,
                 'operation'      => '=',
@@ -39,6 +40,7 @@ class FilterBuilder
             ]
         );
         $optionResolver->addAllowedTypes('isAutoComplete', 'boolean');
+        $optionResolver->addAllowedTypes('type', 'string');
         $optionResolver->addAllowedTypes(
             'property',
             [
@@ -60,6 +62,7 @@ class FilterBuilder
         $this->filters[] = new Filter(
             $name,
             $label,
+            $data['type'],
             $data['property'],
             $data['value'],
             $data['operation'],

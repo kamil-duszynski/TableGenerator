@@ -34,9 +34,21 @@
                             </div>
                         </div>
                         <div class="row">
+                            {% set type_input = constant('KamilDuszynski\\TableGeneratorBundle\\Model\\Filter::TYPE_INPUT') %}
+                            {% set type_checkbox = constant('KamilDuszynski\\TableGeneratorBundle\\Model\\Filter::TYPE_CHECKBOX') %}
+
                             {% for filter in filters %}
                                 <div class="col-md-3">
-                                    <input type="text" class="table-filter-{{ filter.name }} table-filter form-control" name="{{ filter.name }}" value="{{ filter.value }}" title="{{ filter.label }}" placeholder="{{ filter.label }}">
+                                    {% if type_input == filter.type %}
+                                        <input type="text" class="table-filter-{{ filter.name }} table-filter form-control" name="{{ filter.name }}" value="{{ filter.value }}" title="{{ filter.label }}" placeholder="{{ filter.label }}">
+                                    {% endif %}
+
+                                    {% if type_checkbox == filter.type %}
+                                        <label>
+                                            {{ filter.label }}
+                                            <input type="checkbox" class="table-filter-{{ filter.name }} table-filter form-control" name="{{ filter.name }}" value="{{ filter.value }}" {% if filter.value %}checked="checked"{% endif %} title="{{ filter.label }}" >
+                                        </label>
+                                    {% endif %}
                                 </div>
                             {% endfor %}
                         </div>
