@@ -38,15 +38,19 @@
                             {% set type_checkbox = constant('KamilDuszynski\\TableGeneratorBundle\\Model\\Filter::TYPE_CHECKBOX') %}
 
                             {% for filter in filters %}
-                                <div class="col-md-3">
+                                {% set attr = filter.attr %}
+                                {% set attr_class = 'table-filter-' ~ filter.name ~ 'table-filter form-control' %}
+                                {% set attr_size = attr.size is defined ? attr.size : 3 %}
+
+                                <div class="col-md-{{ attr_size }}">
                                     {% if type_input == filter.type %}
-                                        <input type="text" class="table-filter-{{ filter.name }} table-filter form-control" name="{{ filter.name }}" value="{{ filter.value }}" title="{{ filter.label }}" placeholder="{{ filter.label }}">
+                                        <input type="text" class="{{ attr_class }}" name="{{ filter.name }}" value="{{ filter.value }}" title="{{ filter.label }}" placeholder="{{ filter.label }}">
                                     {% endif %}
 
                                     {% if type_checkbox == filter.type %}
                                         <label>
                                             {{ filter.label }}
-                                            <input type="checkbox" class="table-filter-{{ filter.name }} table-filter form-control" name="{{ filter.name }}" value="{{ filter.value }}" {% if filter.value %}checked="checked"{% endif %} title="{{ filter.label }}" >
+                                            <input type="checkbox" class="{{ attr_class }}" name="{{ filter.name }}" value="{{ filter.value }}" {% if filter.value %}checked="checked"{% endif %} title="{{ filter.label }}" >
                                         </label>
                                     {% endif %}
                                 </div>
